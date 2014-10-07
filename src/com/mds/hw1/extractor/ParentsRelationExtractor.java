@@ -35,25 +35,25 @@ public class ParentsRelationExtractor implements RelationExtractor {
     private int resultNum;
     
     public ParentsRelationExtractor(){
-        Pattern p11 = Pattern.compile("(母亲|妈妈)/n [^//s]{2,10}(/nr|/pr|/si|/spr|/sir|/x)");
+        Pattern p11 = Pattern.compile("(母亲|妈妈)/n [^//s]{2,20}(/nr|/pr|/si|/spr|/sir|/x)");
 	patterns.add(p11);
-        Pattern p12 = Pattern.compile("(父亲|爸爸)/n [^//s]{2,10}(/nr|/pr|/si|/spr|/sir|/x)");
+        Pattern p12 = Pattern.compile("(父亲|爸爸)/n [^//s]{2,20}(/nr|/pr|/si|/spr|/sir|/x)");
 	patterns.add(p12);
-	Pattern p21 = Pattern.compile("(父亲|爸爸)/n (，/wd)\\s[^//s]{2,10}(/nr|/pr|/si|/spr|/sir|/x)");
+	Pattern p21 = Pattern.compile("(父亲|爸爸)/n (，/wd)\\s[^//s]{2,20}(/nr|/pr|/si|/spr|/sir|/x)");
 	patterns.add(p21);
-        Pattern p22 = Pattern.compile("(母亲|妈妈)/n (，/wd)\\s[^//s]{2,10}(/nr|/pr|/si|/spr|/sir|/x)");
+        Pattern p22 = Pattern.compile("(母亲|妈妈)/n (，/wd)\\s[^//s]{2,20}(/nr|/pr|/si|/spr|/sir|/x)");
 	patterns.add(p22);
-	Pattern p31 = Pattern.compile("(父亲|爸爸)/n (是/vshi|名叫/v|叫/v|为/p) ([^//s]{1,10}/[a-z] )*[^//s]{2,10}(/nr|/pr|/si|/sir|/spr|/x)");
+	Pattern p31 = Pattern.compile("(父亲|爸爸)/n (是/vshi|名叫/v|叫/v|为/p) ([^//s]{1,20}/[a-z] )*[^//s]{2,10}(/nr|/pr|/si|/sir|/spr|/x)");
 	patterns.add(p31);
-        Pattern p32 = Pattern.compile("(母亲|妈妈)/n (是/vshi|名叫/v|叫/v|为/p) ([^//s]{1,10}/[a-z] )*[^//s]{2,10}(/nr|/pr|/si|/sir|/spr|/x)");
+        Pattern p32 = Pattern.compile("(母亲|妈妈)/n (是/vshi|名叫/v|叫/v|为/p) ([^//s]{1,20}/[a-z] )*[^//s]{2,10}(/nr|/pr|/si|/sir|/spr|/x)");
 	patterns.add(p32);
-        Pattern p41 = Pattern.compile("[^//s]{1,10}(/nr[a-z]*|/pr|/si|/sir|/spr|/x) 的/ude1(母亲|妈妈)/n");
+        Pattern p41 = Pattern.compile("[^//s]{1,20}(/nr[a-z]*|/pr|/si|/sir|/spr|/x) 的/ude1(母亲|妈妈)/n");
         patterns.add(p41);
-        Pattern p42 = Pattern.compile("[^//s]{1,10}(/nr[a-z]*|/pr|/si|/sir|/spr|/x) 的/ude1(父亲|爸爸)/n");
+        Pattern p42 = Pattern.compile("[^//s]{1,20}(/nr[a-z]*|/pr|/si|/sir|/spr|/x) 的/ude1(父亲|爸爸)/n");
         patterns.add(p42);
-        Pattern p5 = Pattern.compile("[^//s]{1,10}(/nr|/pr|/si|/sir|/n|/spr|/x) 之/uzhi 女/ng");
+        Pattern p5 = Pattern.compile("[^//s]{1,20}(/nr|/pr|/si|/sir|/n|/spr|/x) 之/uzhi 女/ng");
         patterns.add(p5);
-        Pattern p6 = Pattern.compile("[^//s]{1,10}(/nr|/pr|/si|/sir|/n|/spr|/x) 之/uzhi 子/ng");
+        Pattern p6 = Pattern.compile("[^//s]{1,20}(/nr|/pr|/si|/sir|/n|/spr|/x) 之/uzhi 子/ng");
         patterns.add(p6);
     }
     
@@ -135,11 +135,9 @@ public class ParentsRelationExtractor implements RelationExtractor {
         for(int i = 0; i < patterns.size(); i ++){
             Matcher m = patterns.get(i).matcher(partiSentence);
             while(m.find()){
-                if (resultNum == 277)
-                    System.out.println("bad");
                 isFind = true;
                 String matchString = m.group();//得到符合规则的String
-                Pattern p = Pattern.compile("\\s[^//s]{1,10}(/nr|/pr|/si|/sir|/spr|/x)");
+                Pattern p = Pattern.compile("\\s[^//s]{2,20}(/nr|/pr|/si|/sir|/spr|/x)");
                 Matcher mm = p.matcher(matchString);
                 if(mm.find()){
                     String nameString = mm.group();
@@ -168,11 +166,11 @@ public class ParentsRelationExtractor implements RelationExtractor {
                     }
                     resultNum++;
                 }
-                if(isFind)
-                  break;
+//                if(isFind)
+//                  break;
             }
-            if(isFind)
-		break;
+//            if(isFind)
+//		break;
 	}
         String[] results = new String[result.size()];
         int i = 0;
