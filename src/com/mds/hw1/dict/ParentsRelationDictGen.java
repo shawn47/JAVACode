@@ -39,6 +39,8 @@ public class ParentsRelationDictGen implements UserDictGenerator{
             String line;
             while((line = reader.readLine()) != null) {
                 String[] p = line.split("\t");
+                // remove the "·" from name
+                p[1] = p[1].replace("·", "").replace(" ", "");
                 String word = p[1] + Util.WORD_CODE_SPLITTER + this.prCode;
                 writer.write(word);
                 writer.newLine();
@@ -55,7 +57,8 @@ public class ParentsRelationDictGen implements UserDictGenerator{
             while((line = reader.readLine()) != null) {
                 String[] p = line.split("\t");
                 if(this.validate(p[3])) {
-                    String newLine = line;
+                    String newLine = line.replace("·", "").replace(" ", "");
+                    //String newLine = line;
                     writer.write(newLine);
                     writer.newLine();
                     System.out.println(line);
